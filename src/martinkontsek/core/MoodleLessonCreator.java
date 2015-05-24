@@ -6,6 +6,10 @@
 package martinkontsek.core;
 
 import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import javax.swing.JTable;
 import martinkontsek.gui.Main;
@@ -13,7 +17,7 @@ import martinkontsek.gui.TableModel;
 
 /**
  *
- * @author Martin
+ * @author Martin Kontsek
  */
 public class MoodleLessonCreator 
 {
@@ -81,6 +85,47 @@ public class MoodleLessonCreator
         }
     }
     
+    private void saveFileResource(File paOutDir, String paFilePath, String paFileName)
+    {
+        InputStream is = getClass().getResourceAsStream(paFilePath+paFileName);
+        
+//        int pos = paFilePath.lastIndexOf('/');
+//        String fileName = paFilePath.substring(pos, paFilePath.length());
+        File outputFile = new File(paOutDir, paFileName);
+        
+        OutputStream os = null;
+        try {
+            os = new FileOutputStream(outputFile);
+            byte[] buffer = new byte[1024];
+            int length;
+            while ((length = is.read(buffer)) > 0) {
+                os.write(buffer, 0, length);
+            }
+            
+            is.close();
+            os.close();
+        } catch (IOException ex) {
+        }
+    }
+    
+    public void saveFileResourcesToBackup(File paMoodleDir, File paLessonDir)
+    {
+        String mainRes = "/martinkontsek/resources/";
+        this.saveFileResource(paMoodleDir, mainRes, "groups.xml");
+        this.saveFileResource(paMoodleDir, mainRes, "moodle_backup.log");
+        this.saveFileResource(paMoodleDir, mainRes, "outcomes.xml");
+        this.saveFileResource(paMoodleDir, mainRes, "questions.xml");
+        this.saveFileResource(paMoodleDir, mainRes, "roles.xml");
+        this.saveFileResource(paMoodleDir, mainRes, "scales.xml");
+        
+        String lessonRes = "/martinkontsek/resources/lesson/";
+        this.saveFileResource(paLessonDir, lessonRes, "calendar.xml");
+        this.saveFileResource(paLessonDir, lessonRes, "filters.xml");
+        this.saveFileResource(paLessonDir, lessonRes, "grade_history.xml");
+        this.saveFileResource(paLessonDir, lessonRes, "module.xml");
+        this.saveFileResource(paLessonDir, lessonRes, "roles.xml");        
+    }
+    
     public void createMoodleBackup()
     {
         File moodleDir = new File("MoodleBackup");        
@@ -93,5 +138,13 @@ public class MoodleLessonCreator
         this.encodeMoodleImages(moodleDir);
         //create files.xml
         mXml.createFilesXML(aMFileList);
+        
+        File activitiesDir = new File(moodleDir, "activities");
+        Utilities.createDir(activitiesDir);        
+        File lessonDir = new File(activitiesDir, "lesson_5");
+        Utilities.createDir(lessonDir);
+        
+        //save files which don't need editing from resources
+        this.saveFileResourcesToBackup(moodleDir, lessonDir);
     }
 }
