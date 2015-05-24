@@ -43,7 +43,7 @@ public class MoodleXML
     {
         String output = null;
         String fileHash = paMFile.getHash();
-        String fileName = paMFile.getSourceFileName();
+        String fileName = paMFile.getResultFileName();
         long fileSize = paMFile.getSourceFileSize();
         int fileID = paMFile.getFileID();
         

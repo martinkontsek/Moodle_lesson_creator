@@ -11,7 +11,7 @@ import martinkontsek.core.MoodleFile;
 
 /**
  *
- * @author Martin
+ * @author Martin Kontsek
  */
 public class TableModel extends AbstractTableModel
 {

@@ -45,8 +45,8 @@ public class Main extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         jPanel1 = new javax.swing.JPanel();
-        jTextField1 = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
+        tfRenAll = new javax.swing.JTextField();
+        btnRenAll = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         miOpen = new javax.swing.JMenuItem();
@@ -67,9 +67,14 @@ public class Main extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(jTable1);
 
-        jTextField1.setText("PR1");
+        tfRenAll.setText("PR1");
 
-        jButton1.setText("Rename all");
+        btnRenAll.setText("Rename all");
+        btnRenAll.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRenAllActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -77,9 +82,9 @@ public class Main extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(tfRenAll, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton1)
+                .addComponent(btnRenAll)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -87,8 +92,8 @@ public class Main extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1))
+                    .addComponent(tfRenAll, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnRenAll))
                 .addContainerGap(69, Short.MAX_VALUE))
         );
 
@@ -105,6 +110,11 @@ public class Main extends javax.swing.JFrame {
 
         miSave.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.CTRL_MASK));
         miSave.setText("Save Lesson");
+        miSave.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                miSaveActionPerformed(evt);
+            }
+        });
         jMenu1.add(miSave);
 
         miExit.setText("Exit");
@@ -159,22 +169,17 @@ public class Main extends javax.swing.JFrame {
 //                if(!subor.getName().toLowerCase().endsWith(".rbc"))
 //                    subor = new File(subor+".rbc");
         
-            
-            File folder = new File("MtempM");
-
-            File[] filesInFolder = retFile.listFiles();
-            ArrayList<MoodleFile> mFileList = new ArrayList<>();
-
-            for (File sFile : filesInFolder) 
-            {
-                mFileList.add(new MoodleFile(sFile));
-            }
-            
-            TableModel model = new TableModel(mFileList);
-            jTable1.setModel(model);
-            jTable1.setVisible(true);
+            aMoLessCr.fillTable(retFile);
         }
     }//GEN-LAST:event_miOpenActionPerformed
+
+    private void btnRenAllActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRenAllActionPerformed
+        aMoLessCr.renameAll(tfRenAll.getText());
+    }//GEN-LAST:event_btnRenAllActionPerformed
+
+    private void miSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miSaveActionPerformed
+        aMoLessCr.createMoodleBackup();
+    }//GEN-LAST:event_miSaveActionPerformed
    
     public JTable getTable()
     {
@@ -218,16 +223,16 @@ public class Main extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton btnRenAll;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JMenuItem miExit;
     private javax.swing.JMenuItem miOpen;
     private javax.swing.JMenuItem miSave;
+    private javax.swing.JTextField tfRenAll;
     // End of variables declaration//GEN-END:variables
 }

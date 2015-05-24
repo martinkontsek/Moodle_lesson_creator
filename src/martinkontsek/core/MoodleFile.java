@@ -31,31 +31,15 @@ public class MoodleFile
         aResultFileName = this.getSourceFileName();
         aFileID = 0;
     }
-    
-    public boolean createDir(File paDir)
-    {
-        boolean result = false;
-        
-        if (!paDir.exists()) {           
-
-            try{
-                paDir.mkdir();
-                result = true;
-            } 
-            catch(SecurityException se){
-                //handle it
-            }      
-            
-        } else {
-            result = true;
-        }
-        
-        return result;
-    }
-    
+       
     public void setResultFileName(String paResultFileName)
     {
-        aResultFileName = paResultFileName;
+        String extension = "";
+        int i = this.getSourceFileName().lastIndexOf('.');
+        if (i > 0) {
+            extension = this.getSourceFileName().substring(i+1);
+        }
+        aResultFileName = paResultFileName+"."+extension;
     }
     
     public String getResultFileName()
@@ -92,9 +76,9 @@ public class MoodleFile
     
     public void saveFileMoodle(File paDir)
     {
-        this.createDir(paDir);
+        Utilities.createDir(paDir);
         File outputDir = new File(paDir, aHash.substring(0, 2));
-        this.createDir(outputDir);
+        Utilities.createDir(outputDir);
         
         File outputFile = new File(outputDir, aHash);
         
