@@ -97,6 +97,11 @@ public class MoodleFile
     {
         this.aNextBtn = paNextBtn;
     }
+
+    public File getSourceFile() 
+    {
+        return aSourceFile;
+    }   
             
     public void saveFileMoodle(File paDir)
     {
