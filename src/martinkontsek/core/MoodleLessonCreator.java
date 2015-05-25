@@ -11,7 +11,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
+import java.util.Collections;
 import javax.swing.JTable;
+import javax.swing.ListSelectionModel;
 import martinkontsek.gui.Main;
 import martinkontsek.gui.TableModel;
 
@@ -24,6 +26,7 @@ public class MoodleLessonCreator
 
     private Main aMainGUI;
     private ArrayList<MoodleFile> aMFileList;
+    private JTable aTable;
     private TableModel aTableModel; 
     private String aLessonName;
     private String aPreviousCaption;
@@ -33,6 +36,7 @@ public class MoodleLessonCreator
     {
         aMainGUI = paMainGUI;
         aMFileList = new ArrayList<>();
+        aTable = null;
         aTableModel = null;
         aLessonName = "Lesson1";
         aPreviousCaption = "Previous";
@@ -86,9 +90,65 @@ public class MoodleLessonCreator
         }
 
         aTableModel = new TableModel(aMFileList);
-        JTable table = aMainGUI.getTable();
-        table.setModel(aTableModel);
-        table.setVisible(true);
+        aTable = aMainGUI.getTable();
+        aTable.setModel(aTableModel);
+        aTable.getTableHeader().setReorderingAllowed(false);
+        aTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        aTable.setVisible(true);
+    }
+    
+    public void moveUp()
+    {
+        try {
+            int rowIndex = aTable.getSelectedRow();
+            if(rowIndex < 0 || rowIndex >= aMFileList.size())
+                return;
+            Collections.swap(aMFileList, rowIndex, rowIndex-1);
+            aTableModel.fireTableDataChanged();
+            aTable.setRowSelectionInterval(rowIndex-1, rowIndex-1);
+        } catch (NullPointerException ex) {           
+        }
+    }
+    
+    public void moveDown()
+    {
+        try {
+            int rowIndex = aTable.getSelectedRow(); 
+            if(rowIndex < 0 || rowIndex >= aMFileList.size())
+                return;
+            Collections.swap(aMFileList, rowIndex, rowIndex+1);
+            aTableModel.fireTableDataChanged();
+            aTable.setRowSelectionInterval(rowIndex+1, rowIndex+1);
+        } catch (NullPointerException ex) {           
+        }
+    }
+    
+    public void moveStart()
+    {
+        try {
+            int rowIndex = aTable.getSelectedRow();
+            if(rowIndex < 0 || rowIndex >= aMFileList.size())
+                return;
+            MoodleFile mf = aMFileList.remove(rowIndex);
+            aMFileList.add(0, mf);
+            aTableModel.fireTableDataChanged();
+            aTable.setRowSelectionInterval(0, 0);
+        } catch (NullPointerException ex) {           
+        }
+    }
+    
+    public void moveEnd()
+    {
+        try {
+            int rowIndex = aTable.getSelectedRow();
+            if(rowIndex < 0 || rowIndex >= aMFileList.size())
+                return;
+            MoodleFile mf = aMFileList.remove(rowIndex);
+            aMFileList.add(mf);
+            aTableModel.fireTableDataChanged();
+            aTable.setRowSelectionInterval(aMFileList.size()-1, aMFileList.size()-1);
+        } catch (NullPointerException ex) {           
+        }
     }
     
     public void renameAll(String paStartString)
