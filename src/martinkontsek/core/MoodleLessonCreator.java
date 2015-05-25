@@ -12,8 +12,12 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Collections;
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import martinkontsek.gui.Main;
 import martinkontsek.gui.TableModel;
 
@@ -21,13 +25,14 @@ import martinkontsek.gui.TableModel;
  *
  * @author Martin Kontsek
  */
-public class MoodleLessonCreator 
+public class MoodleLessonCreator implements ListSelectionListener 
 {
 
     private Main aMainGUI;
     private ArrayList<MoodleFile> aMFileList;
     private JTable aTable;
     private TableModel aTableModel; 
+    private JLabel aPreviewLabel;
     private String aLessonName;
     private String aPreviousCaption;
     private String aNextCaption;
@@ -38,6 +43,7 @@ public class MoodleLessonCreator
         aMFileList = new ArrayList<>();
         aTable = null;
         aTableModel = null;
+        aPreviewLabel = null;
         aLessonName = "Lesson1";
         aPreviousCaption = "Previous";
         aNextCaption = "Next";
@@ -93,8 +99,11 @@ public class MoodleLessonCreator
         aTable = aMainGUI.getTable();
         aTable.setModel(aTableModel);
         aTable.getTableHeader().setReorderingAllowed(false);
-        aTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        aTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);       
+        aTable.getSelectionModel().addListSelectionListener(this);
         aTable.setVisible(true);
+        
+        aPreviewLabel = aMainGUI.getPreviewLabel();
     }
     
     public void moveUp()
@@ -121,6 +130,19 @@ public class MoodleLessonCreator
             aTable.setRowSelectionInterval(rowIndex+1, rowIndex+1);
         } catch (NullPointerException ex) {           
         }
+    }
+    
+    @Override
+    public void valueChanged(ListSelectionEvent e) 
+    {
+        int rowIndex = aTable.getSelectedRow(); 
+        if(rowIndex < 0 || rowIndex >= aMFileList.size())
+            return;
+        File imageFile = aMFileList.get(rowIndex).getSourceFile();
+        ImageIcon image = new ImageIcon(imageFile.getAbsolutePath());
+        ImageIcon resImage = Utilities.getScaledImage(image, 310, 220);
+        aPreviewLabel.setIcon(resImage);
+        //aPreviewLabel.setText(aPreviewLabel.getWidth()+" x "+ aPreviewLabel.getHeight());
     }
     
     public void moveStart()
@@ -263,5 +285,5 @@ public class MoodleLessonCreator
         
         //cleanup
         Utilities.deleteDir(moodleDir);
-    }
+    }    
 }

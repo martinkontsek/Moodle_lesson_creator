@@ -6,14 +6,9 @@
 package martinkontsek.gui;
 
 import java.io.File;
-import java.util.ArrayList;
 import javax.swing.JFileChooser;
+import javax.swing.JLabel;
 import javax.swing.JTable;
-import javax.swing.filechooser.FileFilter;
-import javax.swing.table.AbstractTableModel;
-import javax.swing.table.DefaultTableModel;
-import martinkontsek.core.HashGenerator;
-import martinkontsek.core.MoodleFile;
 import martinkontsek.core.MoodleLessonCreator;
 
 /**
@@ -30,7 +25,7 @@ public class Main extends javax.swing.JFrame {
         initComponents();
         
         aMoLessCr = new MoodleLessonCreator(this);
-        jTable1.setVisible(false);
+        tabTable.setVisible(false);
     }
 
     /**
@@ -43,7 +38,7 @@ public class Main extends javax.swing.JFrame {
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tabTable = new javax.swing.JTable();
         jPanel1 = new javax.swing.JPanel();
         tfRenAll = new javax.swing.JTextField();
         btnRenAll = new javax.swing.JButton();
@@ -59,17 +54,23 @@ public class Main extends javax.swing.JFrame {
         btnRowDown = new javax.swing.JButton();
         btnRowStart = new javax.swing.JButton();
         btnRowEnd = new javax.swing.JButton();
+        labPreview = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
-        jMenu1 = new javax.swing.JMenu();
+        mnuFile = new javax.swing.JMenu();
         miOpen = new javax.swing.JMenuItem();
         miSave = new javax.swing.JMenuItem();
         miExit = new javax.swing.JMenuItem();
-        jMenu2 = new javax.swing.JMenu();
+        mnuEdit = new javax.swing.JMenu();
+        miUp = new javax.swing.JMenuItem();
+        miDown = new javax.swing.JMenuItem();
+        miStart = new javax.swing.JMenuItem();
+        miEnd = new javax.swing.JMenuItem();
+        mnuAbout = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Moodle Lesson Creator v0.1");
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tabTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -77,7 +78,7 @@ public class Main extends javax.swing.JFrame {
 
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tabTable);
 
         tfRenAll.setText("PR1");
 
@@ -113,7 +114,7 @@ public class Main extends javax.swing.JFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel1)
-                                .addGap(0, 209, Short.MAX_VALUE))
+                                .addGap(0, 351, Short.MAX_VALUE))
                             .addComponent(tfLessonName))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -187,31 +188,34 @@ public class Main extends javax.swing.JFrame {
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(32, 32, 32)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(btnRowDown, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnRowUp, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(btnRowEnd, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnRowStart, javax.swing.GroupLayout.DEFAULT_SIZE, 59, Short.MAX_VALUE))
-                .addContainerGap(78, Short.MAX_VALUE))
+                .addContainerGap()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(labPreview, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(btnRowUp, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnRowDown)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 62, Short.MAX_VALUE)
+                        .addComponent(btnRowStart, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnRowEnd, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(136, Short.MAX_VALUE)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnRowUp)
-                    .addComponent(btnRowStart))
+                .addContainerGap()
+                .addComponent(labPreview, javax.swing.GroupLayout.DEFAULT_SIZE, 220, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnRowDown)
-                    .addComponent(btnRowEnd))
-                .addGap(39, 39, 39))
+                    .addComponent(btnRowEnd)
+                    .addComponent(btnRowStart)
+                    .addComponent(btnRowUp))
+                .addContainerGap())
         );
 
-        jMenu1.setText("File");
+        mnuFile.setText("File");
 
         miOpen.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_O, java.awt.event.InputEvent.CTRL_MASK));
         miOpen.setText("Open Folder");
@@ -220,7 +224,7 @@ public class Main extends javax.swing.JFrame {
                 miOpenActionPerformed(evt);
             }
         });
-        jMenu1.add(miOpen);
+        mnuFile.add(miOpen);
 
         miSave.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.CTRL_MASK));
         miSave.setText("Save Lesson");
@@ -229,15 +233,60 @@ public class Main extends javax.swing.JFrame {
                 miSaveActionPerformed(evt);
             }
         });
-        jMenu1.add(miSave);
+        mnuFile.add(miSave);
 
         miExit.setText("Exit");
-        jMenu1.add(miExit);
+        miExit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                miExitActionPerformed(evt);
+            }
+        });
+        mnuFile.add(miExit);
 
-        jMenuBar1.add(jMenu1);
+        jMenuBar1.add(mnuFile);
 
-        jMenu2.setText("About");
-        jMenuBar1.add(jMenu2);
+        mnuEdit.setText("Edit");
+
+        miUp.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_Q, java.awt.event.InputEvent.CTRL_MASK));
+        miUp.setText("Move Up");
+        miUp.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRowUpActionPerformed(evt);
+            }
+        });
+        mnuEdit.add(miUp);
+
+        miDown.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_A, java.awt.event.InputEvent.CTRL_MASK));
+        miDown.setText("Move Down");
+        miDown.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRowDownActionPerformed(evt);
+            }
+        });
+        mnuEdit.add(miDown);
+
+        miStart.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_E, java.awt.event.InputEvent.CTRL_MASK));
+        miStart.setText("Move to Start");
+        miStart.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRowStartActionPerformed(evt);
+            }
+        });
+        mnuEdit.add(miStart);
+
+        miEnd.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_D, java.awt.event.InputEvent.CTRL_MASK));
+        miEnd.setText("Move to End");
+        miEnd.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRowEndActionPerformed(evt);
+            }
+        });
+        mnuEdit.add(miEnd);
+
+        jMenuBar1.add(mnuEdit);
+
+        mnuAbout.setText("About");
+        jMenuBar1.add(mnuAbout);
 
         setJMenuBar(jMenuBar1);
 
@@ -318,10 +367,19 @@ public class Main extends javax.swing.JFrame {
     private void btnRowEndActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRowEndActionPerformed
         aMoLessCr.moveEnd();
     }//GEN-LAST:event_btnRowEndActionPerformed
+
+    private void miExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miExitActionPerformed
+        System.exit(0);
+    }//GEN-LAST:event_miExitActionPerformed
    
     public JTable getTable()
     {
-        return jTable1;
+        return tabTable;
+    }
+    
+    public JLabel getPreviewLabel()
+    {
+        return labPreview;
     }
     
     
@@ -370,16 +428,22 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JLabel labPreview;
+    private javax.swing.JMenuItem miDown;
+    private javax.swing.JMenuItem miEnd;
     private javax.swing.JMenuItem miExit;
     private javax.swing.JMenuItem miOpen;
     private javax.swing.JMenuItem miSave;
+    private javax.swing.JMenuItem miStart;
+    private javax.swing.JMenuItem miUp;
+    private javax.swing.JMenu mnuAbout;
+    private javax.swing.JMenu mnuEdit;
+    private javax.swing.JMenu mnuFile;
+    private javax.swing.JTable tabTable;
     private javax.swing.JTextField tfLessonName;
     private javax.swing.JTextField tfNextCaption;
     private javax.swing.JTextField tfPreviousCaption;

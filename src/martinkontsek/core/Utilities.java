@@ -5,8 +5,12 @@
  */
 package martinkontsek.core;
 
+import java.awt.Graphics2D;
+import java.awt.RenderingHints;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.util.ArrayList;
+import javax.swing.ImageIcon;
 import net.lingala.zip4j.core.ZipFile;
 import net.lingala.zip4j.exception.ZipException;
 import net.lingala.zip4j.model.ZipParameters;
@@ -98,4 +102,13 @@ public class Utilities
         return exist;
     }
     
+    public static ImageIcon getScaledImage(ImageIcon srcImg, int w, int h)
+    {
+        BufferedImage resizedImg = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB);
+        Graphics2D g2 = resizedImg.createGraphics();
+        g2.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
+        g2.drawImage(srcImg.getImage(), 0, 0, w, h, null);
+        g2.dispose();
+        return new ImageIcon(resizedImg);
+    }    
 }
