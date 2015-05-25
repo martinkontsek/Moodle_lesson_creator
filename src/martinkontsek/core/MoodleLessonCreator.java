@@ -160,6 +160,11 @@ public class MoodleLessonCreator
         File lessonDir = new File(activitiesDir, "lesson_5");
         Utilities.createDir(lessonDir);
         
+        //create inforef.xml
+        mXml.createInforefXML(lessonDir);
+        //create grades.xml
+        mXml.createGradesXML(lessonDir, aLessonName);
+        
         //save files which don't need editing from resources
         this.saveFileResourcesToBackup(moodleDir, lessonDir);
     }
