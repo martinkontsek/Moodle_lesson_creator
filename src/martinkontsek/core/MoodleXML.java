@@ -383,12 +383,18 @@ public class MoodleXML
         String nextName = paNextCaption;
         String fileName = paMFile.getResultFileName();
         int fileID = paMFile.getFileID();
-        
+        int previousID = 0;
+        int nextID = 0;
         int ID_offset = 100;
         
+        if(paMFile.getPreviousBtn())
+            previousID = (fileID-2);
+        if(paMFile.getNextBtn())
+            nextID = (fileID+2);
+        
         output ="      <page id=\""+fileID+"\">\n" +
-                "        <prevpageid>"+(fileID-2)+"</prevpageid>\n" +
-                "        <nextpageid>"+(fileID+2)+"</nextpageid>\n" +
+                "        <prevpageid>"+previousID+"</prevpageid>\n" +
+                "        <nextpageid>"+nextID+"</nextpageid>\n" +
                 "        <qtype>20</qtype>\n" +
                 "        <qoption>0</qoption>\n" +
                 "        <layout>1</layout>\n" +
@@ -398,36 +404,44 @@ public class MoodleXML
                 "        <title>"+pageTitle+"</title>\n" +
                 "        <contents>&lt;p&gt;&lt;img src=\"@@PLUGINFILE@@/"+fileName+"\" alt=\"\" role=\"presentation\" style=\"vertical-align:text-bottom; margin: 0 .5em;\" class=\"img-responsive\" width=\"800\" height=\"600\"&gt;&lt;br&gt;&lt;/p&gt;</contents>\n" +
                 "        <contentsformat>1</contentsformat>\n" +
-                "        <answers>\n" +
-                "          <answer id=\""+(fileID+0)+"\">\n" +
-                "            <jumpto>-40</jumpto>\n" +
-                "            <grade>0</grade>\n" +
-                "            <score>0</score>\n" +
-                "            <flags>0</flags>\n" +
-                "            <timecreated>1432199277</timecreated>\n" +
-                "            <timemodified>0</timemodified>\n" +
-                "            <answer_text>"+previousName+"</answer_text>\n" +
-                "            <response>$@NULL@$</response>\n" +
-                "            <answerformat>0</answerformat>\n" +
-                "            <responseformat>0</responseformat>\n" +
-                "            <attempts>\n" +
-                "            </attempts>\n" +
-                "          </answer>\n" +
-                "          <answer id=\""+(fileID+1)+"\">\n" +
-                "            <jumpto>-1</jumpto>\n" +
-                "            <grade>0</grade>\n" +
-                "            <score>0</score>\n" +
-                "            <flags>0</flags>\n" +
-                "            <timecreated>1432199277</timecreated>\n" +
-                "            <timemodified>0</timemodified>\n" +
-                "            <answer_text>"+nextName+"</answer_text>\n" +
-                "            <response>$@NULL@$</response>\n" +
-                "            <answerformat>0</answerformat>\n" +
-                "            <responseformat>0</responseformat>\n" +
-                "            <attempts>\n" +
-                "            </attempts>\n" +
-                "          </answer>\n" +
-                "        </answers>\n" +
+                "        <answers>\n";
+        
+        if(paMFile.getPreviousBtn())
+        {
+            output+="          <answer id=\""+(fileID+0)+"\">\n" +
+                    "            <jumpto>-40</jumpto>\n" +
+                    "            <grade>0</grade>\n" +
+                    "            <score>0</score>\n" +
+                    "            <flags>0</flags>\n" +
+                    "            <timecreated>1432199277</timecreated>\n" +
+                    "            <timemodified>0</timemodified>\n" +
+                    "            <answer_text>"+previousName+"</answer_text>\n" +
+                    "            <response>$@NULL@$</response>\n" +
+                    "            <answerformat>0</answerformat>\n" +
+                    "            <responseformat>0</responseformat>\n" +
+                    "            <attempts>\n" +
+                    "            </attempts>\n" +
+                    "          </answer>\n";
+        }
+        if(paMFile.getNextBtn())
+        {
+            output+="          <answer id=\""+(fileID+1)+"\">\n" +
+                    "            <jumpto>-1</jumpto>\n" +
+                    "            <grade>0</grade>\n" +
+                    "            <score>0</score>\n" +
+                    "            <flags>0</flags>\n" +
+                    "            <timecreated>1432199277</timecreated>\n" +
+                    "            <timemodified>0</timemodified>\n" +
+                    "            <answer_text>"+nextName+"</answer_text>\n" +
+                    "            <response>$@NULL@$</response>\n" +
+                    "            <answerformat>0</answerformat>\n" +
+                    "            <responseformat>0</responseformat>\n" +
+                    "            <attempts>\n" +
+                    "            </attempts>\n" +
+                    "          </answer>\n";
+        }
+        
+        output+="        </answers>\n" +
                 "        <branches>\n" +
                 "        </branches>\n" +
                 "      </page>\n";

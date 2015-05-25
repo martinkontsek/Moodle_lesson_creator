@@ -22,6 +22,8 @@ public class MoodleFile
     private String aHash;  
     private String aResultFileName;
     private int aFileID;
+    private boolean aPreviousBtn;
+    private boolean aNextBtn;
     
     public MoodleFile(File paSourceFile) 
     {
@@ -30,6 +32,8 @@ public class MoodleFile
         aHash = HashGenerator.generateHash(aSourceFile);
         aResultFileName = this.getSourceFileName();
         aFileID = 0;
+        aPreviousBtn = true;
+        aNextBtn = true;
     }
        
     public void setResultFileName(String paResultFileName)
@@ -73,7 +77,27 @@ public class MoodleFile
     {
         return aFileID;
     }
-    
+
+    public boolean getPreviousBtn() 
+    {
+        return aPreviousBtn;
+    }
+
+    public void setPreviousBtn(boolean paPreviousBtn) 
+    {
+        this.aPreviousBtn = paPreviousBtn;
+    }
+
+    public boolean getNextBtn() 
+    {
+        return aNextBtn;
+    }
+
+    public void setNextBtn(boolean paNextBtn) 
+    {
+        this.aNextBtn = paNextBtn;
+    }
+            
     public void saveFileMoodle(File paDir)
     {
         Utilities.createDir(paDir);
