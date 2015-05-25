@@ -25,12 +25,26 @@ public class MoodleLessonCreator
     private Main aMainGUI;
     private ArrayList<MoodleFile> aMFileList;
     private TableModel aTableModel; 
+    private String aLessonName;
     
     public MoodleLessonCreator(Main paMainGUI) 
     {
         aMainGUI = paMainGUI;
         aMFileList = new ArrayList<>();
         aTableModel = null;
+        aLessonName = "Lesson1";
+    }
+    
+    public String getLessonName()
+    {
+        return aLessonName;
+    }
+    
+    public void setLessonName(String paLessonName)
+    {
+        if(paLessonName == null || paLessonName.equals("") || paLessonName.equals(" "))
+            return;
+        aLessonName = paLessonName;
     }
     
     public void fillTable(File paDirFiles)
@@ -131,13 +145,15 @@ public class MoodleLessonCreator
         File moodleDir = new File("MoodleBackup");        
         Utilities.createDir(moodleDir);
                 
-        MoodleXML mXml = new MoodleXML(moodleDir);
+        MoodleXML mXml = new MoodleXML();
         this.setRandomID();
         
         //encode all images to files dir
         this.encodeMoodleImages(moodleDir);
         //create files.xml
-        mXml.createFilesXML(aMFileList);
+        mXml.createFilesXML(moodleDir, aMFileList);
+        //create moodle_backup.xml
+        mXml.createMoodleBackupXML(moodleDir, aLessonName);
         
         File activitiesDir = new File(moodleDir, "activities");
         Utilities.createDir(activitiesDir);        
