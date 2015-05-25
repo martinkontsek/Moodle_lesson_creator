@@ -307,6 +307,134 @@ public class MoodleXML
         this.writeFile(new File(paOutDir, "grades.xml"), output);
     }
     
+    public void createLessonXML(File paOutDir, ArrayList<MoodleFile> paMFileList, String paLessonTitle)
+    {
+        String output = "";
+        
+        output ="<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
+                "<activity id=\"3\" moduleid=\"5\" modulename=\"lesson\" contextid=\"28\">\n" +
+                "  <lesson id=\"3\">\n" +
+                "    <course>2</course>\n" +
+                "    <name>"+paLessonTitle+"</name>\n" +
+                "    <intro>&lt;p&gt;adg&lt;br&gt;&lt;/p&gt;</intro>\n" +
+                "    <introformat>1</introformat>\n" +
+                "    <practice>0</practice>\n" +
+                "    <modattempts>0</modattempts>\n" +
+                "    <usepassword>0</usepassword>\n" +
+                "    <password></password>\n" +
+                "    <dependency>0</dependency>\n" +
+                "    <conditions>O:8:\"stdClass\":3:{s:9:\"timespent\";i:0;s:9:\"completed\";i:0;s:15:\"gradebetterthan\";i:0;}</conditions>\n" +
+                "    <grade>100</grade>\n" +
+                "    <custom>1</custom>\n" +
+                "    <ongoing>0</ongoing>\n" +
+                "    <usemaxgrade>0</usemaxgrade>\n" +
+                "    <maxanswers>4</maxanswers>\n" +
+                "    <maxattempts>1</maxattempts>\n" +
+                "    <review>0</review>\n" +
+                "    <nextpagedefault>0</nextpagedefault>\n" +
+                "    <feedback>0</feedback>\n" +
+                "    <minquestions>0</minquestions>\n" +
+                "    <maxpages>0</maxpages>\n" +
+                "    <timed>0</timed>\n" +
+                "    <maxtime>20</maxtime>\n" +
+                "    <retake>0</retake>\n" +
+                "    <activitylink>0</activitylink>\n" +
+                "    <mediafile></mediafile>\n" +
+                "    <mediaheight>480</mediaheight>\n" +
+                "    <mediawidth>640</mediawidth>\n" +
+                "    <mediaclose>0</mediaclose>\n" +
+                "    <slideshow>0</slideshow>\n" +
+                "    <width>640</width>\n" +
+                "    <height>480</height>\n" +
+                "    <bgcolor>#FFFFFF</bgcolor>\n" +
+                "    <displayleft>0</displayleft>\n" +
+                "    <displayleftif>0</displayleftif>\n" +
+                "    <progressbar>0</progressbar>\n" +
+                "    <showhighscores>0</showhighscores>\n" +
+                "    <maxhighscores>10</maxhighscores>\n" +
+                "    <available>0</available>\n" +
+                "    <deadline>0</deadline>\n" +
+                "    <timemodified>1431982233</timemodified>\n" +
+                "    <pages>\n";
+        
+        for (MoodleFile moodleFile : paMFileList) 
+        {
+           output += this.prepareLessonPage(moodleFile);
+        }
+                
+        output+="    </pages>\n" +
+                "    <grades>\n" +
+                "    </grades>\n" +
+                "    <highscores>\n" +
+                "    </highscores>\n" +
+                "    <timers>\n" +
+                "    </timers>\n" +
+                "  </lesson>\n" +
+                "</activity>";
+        
+        this.writeFile(new File(paOutDir, "lesson.xml"), output);
+    }
+    
+    private String prepareLessonPage(MoodleFile paMFile)
+    {
+        String output = null;
+        String pageTitle = " ";
+        String previousName = "Spat";
+        String nextName = "Dalej";
+        String fileName = paMFile.getResultFileName();
+        int fileID = paMFile.getFileID();
+        
+        int ID_offset = 100;
+        
+        output ="      <page id=\""+fileID+"\">\n" +
+                "        <prevpageid>"+(fileID-2)+"</prevpageid>\n" +
+                "        <nextpageid>"+(fileID+2)+"</nextpageid>\n" +
+                "        <qtype>20</qtype>\n" +
+                "        <qoption>0</qoption>\n" +
+                "        <layout>1</layout>\n" +
+                "        <display>1</display>\n" +
+                "        <timecreated>1432199277</timecreated>\n" +
+                "        <timemodified>0</timemodified>\n" +
+                "        <title>"+pageTitle+"</title>\n" +
+                "        <contents>&lt;p&gt;&lt;img src=\"@@PLUGINFILE@@/"+fileName+"\" alt=\"\" role=\"presentation\" style=\"vertical-align:text-bottom; margin: 0 .5em;\" class=\"img-responsive\" width=\"800\" height=\"600\"&gt;&lt;br&gt;&lt;/p&gt;</contents>\n" +
+                "        <contentsformat>1</contentsformat>\n" +
+                "        <answers>\n" +
+                "          <answer id=\""+(fileID+0)+"\">\n" +
+                "            <jumpto>-40</jumpto>\n" +
+                "            <grade>0</grade>\n" +
+                "            <score>0</score>\n" +
+                "            <flags>0</flags>\n" +
+                "            <timecreated>1432199277</timecreated>\n" +
+                "            <timemodified>0</timemodified>\n" +
+                "            <answer_text>"+previousName+"</answer_text>\n" +
+                "            <response>$@NULL@$</response>\n" +
+                "            <answerformat>0</answerformat>\n" +
+                "            <responseformat>0</responseformat>\n" +
+                "            <attempts>\n" +
+                "            </attempts>\n" +
+                "          </answer>\n" +
+                "          <answer id=\""+(fileID+1)+"\">\n" +
+                "            <jumpto>-1</jumpto>\n" +
+                "            <grade>0</grade>\n" +
+                "            <score>0</score>\n" +
+                "            <flags>0</flags>\n" +
+                "            <timecreated>1432199277</timecreated>\n" +
+                "            <timemodified>0</timemodified>\n" +
+                "            <answer_text>"+nextName+"</answer_text>\n" +
+                "            <response>$@NULL@$</response>\n" +
+                "            <answerformat>0</answerformat>\n" +
+                "            <responseformat>0</responseformat>\n" +
+                "            <attempts>\n" +
+                "            </attempts>\n" +
+                "          </answer>\n" +
+                "        </answers>\n" +
+                "        <branches>\n" +
+                "        </branches>\n" +
+                "      </page>\n";
+        
+        return output;
+    }
+    
     private void writeFile(File paFile, String paContent)
     {
         PrintWriter out = null;
