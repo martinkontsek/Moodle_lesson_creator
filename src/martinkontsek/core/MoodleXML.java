@@ -16,8 +16,11 @@ import java.util.ArrayList;
  */
 public class MoodleXML 
 {
+    private String aInforefFiles;
+    
     public MoodleXML() 
     {
+        aInforefFiles = "";
     }
     
     public void createFilesXML(File paOutDir, ArrayList<MoodleFile> paMFileList)
@@ -45,6 +48,13 @@ public class MoodleXML
         int fileID = paMFile.getFileID();
         
         int ID_offset = 100;
+        
+        aInforefFiles +="    <file>\n" +
+                        "      <id>"+(fileID+ID_offset)+"</id>\n" +
+                        "    </file>\n" +
+                        "    <file>\n" +
+                        "      <id>"+(fileID+ID_offset+1)+"</id>\n" +
+                        "    </file>\n";
         
         output ="  <file id=\""+(fileID+ID_offset)+"\">\n" +
                 "    <contenthash>"+fileHash+"</contenthash>\n" +
@@ -228,6 +238,73 @@ public class MoodleXML
                 "</moodle_backup>\n";
         
         this.writeFile(new File(paOutDir, "moodle_backup.xml"), output);
+    }
+    
+    public void createInforefXML(File paOutDir)
+    {
+        String output = "";
+        
+        output ="<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
+                "<inforef>\n" +
+                "  <fileref>\n" +
+                aInforefFiles +
+                "  </fileref>\n" +
+                "  <grade_itemref>\n" +
+                "    <grade_item>\n" +
+                "      <id>4</id>\n" +
+                "    </grade_item>\n" +
+                "  </grade_itemref>\n" +
+                "</inforef>";
+        
+        this.writeFile(new File(paOutDir, "inforef.xml"), output);
+    }
+    
+    public void createGradesXML(File paOutDir, String paLessonTitle)
+    {
+        String output = "";
+        
+        output ="<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
+                "<activity_gradebook>\n" +
+                "  <grade_items>\n" +
+                "    <grade_item id=\"4\">\n" +
+                "      <categoryid>1</categoryid>\n" +
+                "      <itemname>"+paLessonTitle+"</itemname>\n" +
+                "      <itemtype>mod</itemtype>\n" +
+                "      <itemmodule>lesson</itemmodule>\n" +
+                "      <iteminstance>3</iteminstance>\n" +
+                "      <itemnumber>0</itemnumber>\n" +
+                "      <iteminfo>$@NULL@$</iteminfo>\n" +
+                "      <idnumber></idnumber>\n" +
+                "      <calculation>$@NULL@$</calculation>\n" +
+                "      <gradetype>1</gradetype>\n" +
+                "      <grademax>100.00000</grademax>\n" +
+                "      <grademin>0.00000</grademin>\n" +
+                "      <scaleid>$@NULL@$</scaleid>\n" +
+                "      <outcomeid>$@NULL@$</outcomeid>\n" +
+                "      <gradepass>0.00000</gradepass>\n" +
+                "      <multfactor>1.00000</multfactor>\n" +
+                "      <plusfactor>0.00000</plusfactor>\n" +
+                "      <aggregationcoef>0.00000</aggregationcoef>\n" +
+                "      <aggregationcoef2>0.90909</aggregationcoef2>\n" +
+                "      <weightoverride>0</weightoverride>\n" +
+                "      <sortorder>2</sortorder>\n" +
+                "      <display>0</display>\n" +
+                "      <decimals>$@NULL@$</decimals>\n" +
+                "      <hidden>0</hidden>\n" +
+                "      <locked>0</locked>\n" +
+                "      <locktime>0</locktime>\n" +
+                "      <needsupdate>0</needsupdate>\n" +
+                "      <timecreated>1431982233</timecreated>\n" +
+                "      <timemodified>1432197726</timemodified>\n" +
+                "      <grade_grades>\n" +
+                "      </grade_grades>\n" +
+                "    </grade_item>\n" +
+                "  </grade_items>\n" +
+                "  <grade_letters>\n" +
+                "  </grade_letters>\n" +
+                "</activity_gradebook>";
+        
+        this.writeFile(new File(paOutDir, "grades.xml"), output);
     }
     
     private void writeFile(File paFile, String paContent)
