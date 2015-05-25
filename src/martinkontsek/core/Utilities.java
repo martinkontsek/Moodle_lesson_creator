@@ -5,10 +5,12 @@
  */
 package martinkontsek.core;
 
+import java.awt.Desktop;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.net.URL;
 import java.util.ArrayList;
 import javax.swing.ImageIcon;
 import net.lingala.zip4j.core.ZipFile;
@@ -110,5 +112,15 @@ public class Utilities
         g2.drawImage(srcImg.getImage(), 0, 0, w, h, null);
         g2.dispose();
         return new ImageIcon(resizedImg);
-    }    
+    } 
+    
+    
+
+    public static void openWebpage(String urlString) 
+    {
+        try {
+            Desktop.getDesktop().browse(new URL(urlString).toURI());
+        } catch (Exception e) {
+        }
+    }
 }

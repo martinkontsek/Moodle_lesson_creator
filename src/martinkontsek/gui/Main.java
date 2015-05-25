@@ -8,8 +8,10 @@ package martinkontsek.gui;
 import java.io.File;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import martinkontsek.core.MoodleLessonCreator;
+import martinkontsek.core.Utilities;
 
 /**
  *
@@ -65,7 +67,9 @@ public class Main extends javax.swing.JFrame {
         miDown = new javax.swing.JMenuItem();
         miStart = new javax.swing.JMenuItem();
         miEnd = new javax.swing.JMenuItem();
-        mnuAbout = new javax.swing.JMenu();
+        mnuHelp = new javax.swing.JMenu();
+        miSources = new javax.swing.JMenuItem();
+        miAbout = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Moodle Lesson Creator v0.1");
@@ -285,8 +289,25 @@ public class Main extends javax.swing.JFrame {
 
         jMenuBar1.add(mnuEdit);
 
-        mnuAbout.setText("About");
-        jMenuBar1.add(mnuAbout);
+        mnuHelp.setText("Help");
+
+        miSources.setText("Sources on GitHub");
+        miSources.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                miSourcesActionPerformed(evt);
+            }
+        });
+        mnuHelp.add(miSources);
+
+        miAbout.setText("About");
+        miAbout.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                miAboutActionPerformed(evt);
+            }
+        });
+        mnuHelp.add(miAbout);
+
+        jMenuBar1.add(mnuHelp);
 
         setJMenuBar(jMenuBar1);
 
@@ -371,6 +392,21 @@ public class Main extends javax.swing.JFrame {
     private void miExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miExitActionPerformed
         System.exit(0);
     }//GEN-LAST:event_miExitActionPerformed
+
+    private void miAboutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miAboutActionPerformed
+        JOptionPane.showMessageDialog(this,
+            "Application is used for creating Moodle Lessons from image files.\n"
+            + "After saving finished lesson, Moodle backup is created in the\n"
+            + "current directory. Than you have to restore backup into Moodle.\n"
+            +"\n"        
+            + "            created by Martin Kontsek in 2015",
+            "About",
+            JOptionPane.INFORMATION_MESSAGE);
+    }//GEN-LAST:event_miAboutActionPerformed
+
+    private void miSourcesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miSourcesActionPerformed
+        Utilities.openWebpage("http://github.com/martinkontsek/Moodle_lesson_creator");
+    }//GEN-LAST:event_miSourcesActionPerformed
    
     public JTable getTable()
     {
@@ -433,16 +469,18 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel labPreview;
+    private javax.swing.JMenuItem miAbout;
     private javax.swing.JMenuItem miDown;
     private javax.swing.JMenuItem miEnd;
     private javax.swing.JMenuItem miExit;
     private javax.swing.JMenuItem miOpen;
     private javax.swing.JMenuItem miSave;
+    private javax.swing.JMenuItem miSources;
     private javax.swing.JMenuItem miStart;
     private javax.swing.JMenuItem miUp;
-    private javax.swing.JMenu mnuAbout;
     private javax.swing.JMenu mnuEdit;
     private javax.swing.JMenu mnuFile;
+    private javax.swing.JMenu mnuHelp;
     private javax.swing.JTable tabTable;
     private javax.swing.JTextField tfLessonName;
     private javax.swing.JTextField tfNextCaption;
