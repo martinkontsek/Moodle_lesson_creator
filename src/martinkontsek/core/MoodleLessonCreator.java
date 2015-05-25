@@ -257,5 +257,11 @@ public class MoodleLessonCreator
         
         //save files which don't need editing from resources
         this.saveFileResourcesToBackup(moodleDir, lessonDir);
+        
+        //compress moodle backup
+        Utilities.compressFolder(moodleDir);
+        
+        //cleanup
+        Utilities.deleteDir(moodleDir);
     }
 }
