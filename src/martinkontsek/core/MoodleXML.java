@@ -307,7 +307,7 @@ public class MoodleXML
         this.writeFile(new File(paOutDir, "grades.xml"), output);
     }
     
-    public void createLessonXML(File paOutDir, ArrayList<MoodleFile> paMFileList, String paLessonTitle)
+    public void createLessonXML(File paOutDir, ArrayList<MoodleFile> paMFileList, String paLessonTitle, String paPreviousCaption, String paNextCaption)
     {
         String output = "";
         
@@ -359,7 +359,7 @@ public class MoodleXML
         
         for (MoodleFile moodleFile : paMFileList) 
         {
-           output += this.prepareLessonPage(moodleFile);
+           output += this.prepareLessonPage(moodleFile, paPreviousCaption, paNextCaption);
         }
                 
         output+="    </pages>\n" +
@@ -375,12 +375,12 @@ public class MoodleXML
         this.writeFile(new File(paOutDir, "lesson.xml"), output);
     }
     
-    private String prepareLessonPage(MoodleFile paMFile)
+    private String prepareLessonPage(MoodleFile paMFile, String paPreviousCaption, String paNextCaption)
     {
         String output = null;
         String pageTitle = " ";
-        String previousName = "Spat";
-        String nextName = "Dalej";
+        String previousName = paPreviousCaption;
+        String nextName = paNextCaption;
         String fileName = paMFile.getResultFileName();
         int fileID = paMFile.getFileID();
         
