@@ -26,6 +26,8 @@ public class MoodleLessonCreator
     private ArrayList<MoodleFile> aMFileList;
     private TableModel aTableModel; 
     private String aLessonName;
+    private String aPreviousCaption;
+    private String aNextCaption;
     
     public MoodleLessonCreator(Main paMainGUI) 
     {
@@ -33,6 +35,8 @@ public class MoodleLessonCreator
         aMFileList = new ArrayList<>();
         aTableModel = null;
         aLessonName = "Lesson1";
+        aPreviousCaption = "Previous";
+        aNextCaption = "Next";
     }
     
     public String getLessonName()
@@ -46,7 +50,31 @@ public class MoodleLessonCreator
             return;
         aLessonName = paLessonName;
     }
-    
+
+    public String getPreviousCaption() 
+    {
+        return aPreviousCaption;
+    }
+
+    public void setPreviousCaption(String paPreviousCaption) 
+    {
+        if(paPreviousCaption == null || paPreviousCaption.equals("") || paPreviousCaption.equals(" "))
+            return;
+        this.aPreviousCaption = paPreviousCaption;
+    }
+
+    public String getNextCaption() 
+    {
+        return aNextCaption;
+    }
+
+    public void setNextCaption(String paNextCaption) 
+    {
+        if(paNextCaption == null || paNextCaption.equals("") || paNextCaption.equals(" "))
+            return;
+        this.aNextCaption = paNextCaption;
+    }
+      
     public void fillTable(File paDirFiles)
     {
         File[] filesInFolder = paDirFiles.listFiles();
@@ -165,7 +193,7 @@ public class MoodleLessonCreator
         //create grades.xml
         mXml.createGradesXML(lessonDir, aLessonName);
         //create lesson.xml
-        mXml.createLessonXML(lessonDir, aMFileList, aLessonName);
+        mXml.createLessonXML(lessonDir, aMFileList, aLessonName, aPreviousCaption, aNextCaption);
         
         //save files which don't need editing from resources
         this.saveFileResourcesToBackup(moodleDir, lessonDir);
