@@ -164,6 +164,8 @@ public class MoodleLessonCreator
         mXml.createInforefXML(lessonDir);
         //create grades.xml
         mXml.createGradesXML(lessonDir, aLessonName);
+        //create lesson.xml
+        mXml.createLessonXML(lessonDir, aMFileList, aLessonName);
         
         //save files which don't need editing from resources
         this.saveFileResourcesToBackup(moodleDir, lessonDir);
