@@ -40,6 +40,14 @@ public class MoodleLessonCreator implements ListSelectionListener
     public MoodleLessonCreator(Main paMainGUI) 
     {
         aMainGUI = paMainGUI;
+        this.reset();
+    }
+    
+    public void reset()
+    {
+        if(aTable != null)
+            aTable.setVisible(false);
+        
         aMFileList = new ArrayList<>();
         aTable = null;
         aTableModel = null;

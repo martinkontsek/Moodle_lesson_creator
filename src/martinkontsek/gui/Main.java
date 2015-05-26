@@ -338,26 +338,12 @@ public class Main extends javax.swing.JFrame {
         JFileChooser fc = new JFileChooser();
         fc.setDialogTitle("Select File");
         fc.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-//            fc.setFileFilter(new FileFilter() {
-//
-//                @Override
-//                public boolean accept(File f) {
-//                    if(f.getName().toLowerCase().endsWith(".jpg") || f.isDirectory())                    
-//                        return true;
-//                    else                        
-//                        return false;
-//                }
-//                @Override
-//                public String getDescription() {
-//                    return "Záloha programu Rozvrh (.rbc)";
-//                }
-//            });
+
         int returnVal = fc.showDialog(this, "Open");
         if (returnVal == JFileChooser.APPROVE_OPTION) {
             File retFile = fc.getSelectedFile();
-//                if(!subor.getName().toLowerCase().endsWith(".rbc"))
-//                    subor = new File(subor+".rbc");
         
+            aMoLessCr.reset();
             aMoLessCr.fillTable(retFile);
         }
     }//GEN-LAST:event_miOpenActionPerformed
