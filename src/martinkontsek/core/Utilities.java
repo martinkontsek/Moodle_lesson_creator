@@ -46,11 +46,11 @@ public class Utilities
         return result;
     }
     
-    public static void compressFolder(File paFolderToCompress)
+    public static void compressFolder(File paFolderToCompress, String paBackupName)
     {
         try {
             // Initiate ZipFile object with the path/name of the zip file.
-            ZipFile zipFile = new ZipFile("MoodleLessonCreator.mbz");
+            ZipFile zipFile = new ZipFile(paBackupName+".mbz");
 
             ZipParameters parameters = new ZipParameters();
             parameters.setCompressionMethod(Zip4jConstants.COMP_DEFLATE);
