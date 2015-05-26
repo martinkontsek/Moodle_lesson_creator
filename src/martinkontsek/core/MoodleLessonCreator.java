@@ -36,6 +36,7 @@ public class MoodleLessonCreator implements ListSelectionListener
     private String aLessonName;
     private String aPreviousCaption;
     private String aNextCaption;
+    private String aBackupName;
     
     public MoodleLessonCreator(Main paMainGUI) 
     {
@@ -55,6 +56,7 @@ public class MoodleLessonCreator implements ListSelectionListener
         aLessonName = "Lesson1";
         aPreviousCaption = "Previous";
         aNextCaption = "Next";
+        aBackupName = "MoodleLessonCreator";
     }
     
     public String getLessonName()
@@ -92,6 +94,18 @@ public class MoodleLessonCreator implements ListSelectionListener
             return;
         this.aNextCaption = paNextCaption;
     }
+
+    public String getBackupName() 
+    {
+        return aBackupName;
+    }
+
+    public void setBackupName(String paBackupName) 
+    {
+        if(paBackupName == null || paBackupName.equals("") || paBackupName.equals(" "))
+            return;
+        this.aBackupName = paBackupName;
+    }   
       
     public void fillTable(File paDirFiles)
     {
@@ -289,7 +303,7 @@ public class MoodleLessonCreator implements ListSelectionListener
         this.saveFileResourcesToBackup(moodleDir, lessonDir);
         
         //compress moodle backup
-        Utilities.compressFolder(moodleDir);
+        Utilities.compressFolder(moodleDir, aBackupName);
         
         //cleanup
         Utilities.deleteDir(moodleDir);
