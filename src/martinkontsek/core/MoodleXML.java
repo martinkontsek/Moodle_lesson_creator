@@ -7,7 +7,10 @@ package martinkontsek.core;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 
 /**
@@ -453,9 +456,11 @@ public class MoodleXML
     {
         PrintWriter out = null;
         try {
-            out = new PrintWriter(paFile);
+            out = new PrintWriter(new OutputStreamWriter(new FileOutputStream(paFile), "UTF-8"));
             out.println(paContent);
         } catch (FileNotFoundException ex) {
+            
+        } catch (UnsupportedEncodingException ex) {
             
         } finally {
             out.close();
