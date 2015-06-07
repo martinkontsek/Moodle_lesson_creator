@@ -319,7 +319,7 @@ public class MoodleXML
                 "  <lesson id=\"3\">\n" +
                 "    <course>2</course>\n" +
                 "    <name>"+paLessonTitle+"</name>\n" +
-                "    <intro>&lt;p&gt;adg&lt;br&gt;&lt;/p&gt;</intro>\n" +
+                "    <intro></intro>\n" +
                 "    <introformat>1</introformat>\n" +
                 "    <practice>0</practice>\n" +
                 "    <modattempts>0</modattempts>\n" +
@@ -358,6 +358,8 @@ public class MoodleXML
                 "    <available>0</available>\n" +
                 "    <deadline>0</deadline>\n" +
                 "    <timemodified>1431982233</timemodified>\n" +
+                "    <completionendreached>0</completionendreached>\n" +
+                "    <completiontimespent>0</completiontimespent>" +
                 "    <pages>\n";
         
         for (MoodleFile moodleFile : paMFileList) 
